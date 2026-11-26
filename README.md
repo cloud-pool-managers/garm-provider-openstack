@@ -1,5 +1,13 @@
 # Garm External Provider For OpenStack
 
+> **cloud-pool-managers fork.** This repository carries the patches we run on our own CI
+> before they are offered upstream (`cloudbase/garm-provider-openstack`, kept as the upstream
+> remote). `.github/workflows` is replaced by `cpm-ci.yml` and `cpm-release.yml`.
+>
+> **Tags.** Fork releases are named `v<upstream version>-cpm.<N>` (for example `v0.1.6-cpm.1`).
+> The `-cpm.N` suffix is a SemVer pre-release identifier that upstream never uses, so a fork tag
+> cannot collide with an upstream tag. Each release attaches `SHA256SUMS`.
+
 The OpenStack external provider allows [garm](https://github.com/cloudbase/garm) to create Linux and Windows runners on top of OpenStack virtual machines.
 
 ## Build
