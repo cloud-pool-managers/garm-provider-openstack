@@ -1,0 +1,38 @@
+name: cpm-release
+
+# Builds the release asset of a fork tag `v<upstream>-cpm.<N>` and publishes it with SHA256SUMS.
+
+on:
+  push:
+    tags: ['v*-cpm.*']
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-22.04
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-go@v6
+        with:
+          go-version-file: go.mod
+      - name: Build
+        env:
+          CGO_ENABLED: "0"
+          GOOS: linux
+          GOARCH: amd64
+        run: |
+          mkdir -p dist
+          go build -mod=vendor -trimpath -ldflags "-s -w" -o dist/garm-provider-openstack .
+          tar -C dist -czf "dist/garm-provider-openstack-${{ github.ref_name }}-linux-amd64.tar.gz" garm-provider-openstack
+          rm dist/garm-provider-openstack
+          (cd dist && sha256sum ./*.tar.gz > SHA256SUMS)
+      - name: Publish
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TAG: ${{ github.ref_name }}
+        run: |
+          gh release create "${TAG}" dist/* --title "${TAG}" \
+            --notes "cloud-pool-managers fork build of garm-provider-openstack (see README for the tag scheme). Verify with SHA256SUMS."
