@@ -4,9 +4,10 @@
 > before they are offered upstream (`cloudbase/garm-provider-openstack`, kept as the upstream
 > remote). `.github/workflows` is replaced by `cpm-ci.yml` and `cpm-release.yml`.
 >
-> **Tags.** Fork releases are named `v<upstream version>-cpm.<N>` (for example `v0.1.6-cpm.1`).
-> The `-cpm.N` suffix is a SemVer pre-release identifier that upstream never uses, so a fork tag
-> cannot collide with an upstream tag. Each release attaches `SHA256SUMS`.
+> **Tags.** Fork releases use plain SemVer `vMAJOR.MINOR.PATCH`, starting at `v0.100.0`, a
+> range upstream (currently `v0.1.x`) is not expected to reach, so a fork tag cannot collide
+> with an upstream tag. The release notes name the upstream commit each release is based on.
+> Each release attaches `SHA256SUMS`.
 
 The OpenStack external provider allows [garm](https://github.com/cloudbase/garm) to create Linux and Windows runners on top of OpenStack virtual machines.
 
