@@ -34,5 +34,12 @@ jobs:
           GH_TOKEN: ${{ github.token }}
           TAG: ${{ github.ref_name }}
         run: |
-          gh release create "${TAG}" dist/* --title "${TAG}" \
-            --notes "cloud-pool-managers fork build of garm-provider-openstack (see README for the tag scheme). Verify with SHA256SUMS."
+          # ghrelease creates the GitHub release (with its notes) when it tags,
+          # so the release already exists by the time this runs: attach the
+          # assets to it, and create it only when it is absent.
+          if gh release view "${TAG}" >/dev/null 2>&1; then
+            gh release upload "${TAG}" dist/* --clobber
+          else
+            gh release create "${TAG}" dist/* --title "${TAG}" \
+              --notes "cloud-pool-managers fork build of garm-provider-openstack (see README for the tag scheme). Verify with SHA256SUMS."
+          fi
