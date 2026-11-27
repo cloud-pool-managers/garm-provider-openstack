@@ -7,7 +7,9 @@
 > **Tags.** Fork releases use plain SemVer `vMAJOR.MINOR.PATCH`, starting at `v0.100.0`, a
 > range upstream (currently `v0.1.x`) is not expected to reach, so a fork tag cannot collide
 > with an upstream tag. The release notes name the upstream commit each release is based on.
-> Each release attaches `SHA256SUMS`.
+> Each release attaches `SHA256SUMS` and the linux/amd64 tarball. `v0.100.0` has no assets
+> (the release workflow tried to create a release `ghrelease` had already created); deploy
+> `v0.100.1` or later.
 
 The OpenStack external provider allows [garm](https://github.com/cloudbase/garm) to create Linux and Windows runners on top of OpenStack virtual machines.
 
