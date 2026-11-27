@@ -1,10 +1,10 @@
 name: cpm-release
 
-# Builds the release asset of a fork tag `v<upstream>-cpm.<N>` and publishes it with SHA256SUMS.
+# Builds the release asset of a fork tag `vMAJOR.MINOR.PATCH` and publishes it with SHA256SUMS.
 
 on:
   push:
-    tags: ['v*-cpm.*']
+    tags: ['v*']
 
 permissions:
   contents: write
